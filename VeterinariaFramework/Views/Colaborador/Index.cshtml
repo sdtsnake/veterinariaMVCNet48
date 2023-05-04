@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Lista de Colaboradores</title>
+</head>
+<body>
+    <h1>Lista de Colaboradores</h1>
+    <table id="colaboradores" class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Cargo</th>
+                <th>Especialidad</th>
+                <th>Tipo de documento</th>
+                <th>Documento de identificacion</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script>
+        var colaboradores = @Html.Raw(Json.Encode(Model));
+        var tbody = document.querySelector('#colaboradores tbody');
+
+        colaboradores.forEach(function (colaborador) {
+            var row = document.createElement('tr');
+
+            var id = document.createElement('td');
+            id.textContent = colaborador.Id;
+            row.appendChild(id);
+
+            var nombre = document.createElement('td');
+            nombre.textContent = colaborador.Nombre;
+            row.appendChild(nombre);
+
+            var apellido = document.createElement('td');
+            apellido.textContent = colaborador.Apellido;
+            row.appendChild(apellido);
+
+            var cargo = document.createElement('td');
+            cargo.textContent = colaborador.Cargo;
+            row.appendChild(cargo);
+
+            var especialidad = document.createElement('td');
+            especialidad.textContent = colaborador.Especialidad;
+            row.appendChild(especialidad);
+
+            var tipoDocumento = document.createElement('td');
+            tipoDocumento.textContent = colaborador.TipoDocumento;
+            row.appendChild(tipoDocumento);
+
+            var documentoIdentificiacion = document.createElement('td');
+            documentoIdentificiacion.textContent = colaborador.DocumentoIdentificacion;
+            row.appendChild(documentoIdentificiacion);
+
+            tbody.appendChild(row);
+        });
+    </script>
+</body>
+</html>

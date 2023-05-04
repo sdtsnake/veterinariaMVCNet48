@@ -5,6 +5,11 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Unity;
+using Unity.AspNet.Mvc;
+using Unity.Lifetime;
+using VeterinariaFramework.Interfaz;
+using VeterinariaFramework.Models;
 
 namespace VeterinariaFramework
 {
@@ -12,6 +17,14 @@ namespace VeterinariaFramework
     {
         protected void Application_Start()
         {
+            var container = new UnityContainer();
+            container.RegisterType<IVeterinariaDbContext, VeterinariaDbContext>(new HierarchicalLifetimeManager());
+
+            // Registra aquí las demás dependencias que necesites
+
+            DependencyResolver.SetResolver(new UnityDependencyResolver(container));
+
+            // Configuración de Web API y otros middlewares aquí
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
