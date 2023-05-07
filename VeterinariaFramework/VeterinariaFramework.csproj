@@ -335,6 +335,9 @@
     <Content Include="Views\Mascota\Details.cshtml" />
     <Content Include="Views\Mascota\Edit.cshtml" />
     <Content Include="Views\Mascota\Index.cshtml" />
+    <Content Include="Views\Colaborador\Edit.cshtml" />
+    <Content Include="Views\Colaborador\Details.cshtml" />
+    <Content Include="Views\Colaborador\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,71 @@
+﻿
+@model VeterinariaFramework.Models.Colaborador
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Eliminar Colaborador</title>    
+</head>
+<body>
+    <div class="container">
+        <h1>Esta seguro que desea elimiar este colaborador</h1>
+
+        <form asp-action="DeleteConfirmed" method="post">
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <label for="tipoDocumento">Tipo de Documento:</label>
+                @if (Model.TipoDocumento == "CC")
+                {
+                    <label id="tipoDocumento" class="form-control">Cédula de Ciudadanía</label>
+                }
+                else if (Model.TipoDocumento == "TI")
+                {
+                    <label id="tipoDocumento" class="form-control">Tarjeta de Identidad</label>
+                }
+                else if (Model.TipoDocumento == "PT")
+                {
+                    <label id="tipoDocumento" class="form-control">Pasaporte</label>
+                }
+                else if (Model.TipoDocumento == "CE")
+                {
+                    <label id="tipoDocumento" class="form-control">Cédula de Extranjería</label>
+                }
+            </div>
+
+
+            <div class="form-group">
+                <label for="numeroDocumento">Número de Documento:</label>
+                <label for="documentoIdentificaion" class="form-control">@Model.DocumentoIdentificacion</label>
+            </div>
+
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <label for="nombre" class="form-control"> @Model.Nombre</label>
+            </div>
+
+            <div class="form-group">
+                <label for="apellido">Apellido:</label>
+                <label for="apellido" class="form-control"> @Model.Apellido </label>
+            </div>
+
+            <div class="form-group">
+                <label for="cargo">Cargo:</label>
+                <label for="cargo" class="form-control">@Model.Cargo</label>
+            </div>
+
+            <div class="form-group">
+                <label>Especialidad:</label>
+                <label for="epecialidad" class="form-control">@Model.Especialidad</label>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+                <a href="@Url.Action("Index", "Colaborador")" class="btn btn-success">Regresar al Listado</a>
+            </div>
+        </form>

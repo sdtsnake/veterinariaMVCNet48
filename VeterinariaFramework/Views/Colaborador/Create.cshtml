@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    
 }
 
 <!DOCTYPE html>
@@ -13,6 +14,7 @@
 <body>
     <h1>Crear Colaborador</h1>
     <form method="post" action="/Colaborador/Create">
+        @Html.AntiForgeryToken()
         <div class="form-group">
             <label for="tipoDocumento">Tipo de Documento:</label>
             <select class="form-control" name="tipoDocumento" id="tipoDocumento" required>
@@ -26,7 +28,7 @@
 
         <div class="form-group">
             <label for="numeroDocumento">Número de Documento:</label>
-            <input type="text" class="form-control" name="numeroDocumento" id="numeroDocumento" required>
+            <input type="text" class="form-control" name="documentoIdentificacion" id="documentoIdentificaion" required>
         </div>
 
         <div class="form-group">
@@ -67,10 +69,11 @@
         </div>
         <div>
             <input type="submit" class="btn btn-primary" value="Crear">
+            <a href="@Url.Action("Index", "Colaborador")" class="btn btn-success">Regresar al Listado</a>
         </div>
     </form>
 
-    
+
 
 </body>
 </html>

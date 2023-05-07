@@ -46,50 +46,82 @@ namespace VeterinariaFramework.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(string tipoDocumento, string numeroDocumento, string nombre, string apellido, string cargo, string especialidad)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "nombre,apellido,cargo,especialidad,tipoDocumento,DocumentoIdentificacion")] Colaborador colaborador)
         {
-            int documentoIdentificacion;
-            if (!int.TryParse(numeroDocumento, out documentoIdentificacion))
+            int documento;
+            if (int.TryParse(colaborador.DocumentoIdentificacion.ToString(), out documento))
             {
-                // La conversión falló, así que podrías devolver una vista de error o tomar otra acción
-                return View();
+                colaborador.DocumentoIdentificacion = documento;
+                if (ModelState.IsValid)
+                {
+                    _dbContext.Colaboradores.Add(colaborador);
+                    _dbContext.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
 
-
-            // Crea un nuevo objeto Colaborador con los datos recibidos del formulario
-            var colaborador = new Colaborador
-            {
-                TipoDocumento = tipoDocumento,
-                DocumentoIdentificacion = documentoIdentificacion,
-                Nombre = nombre,
-                Apellido = apellido,
-                Cargo = cargo,
-                Especialidad = especialidad
-            };
-
-            // Guarda el nuevo objeto Colaborador en la base de datos utilizando el contexto de base de datos
-            _dbContext.Colaboradores.Add(colaborador);
-            _dbContext.SaveChanges();
-
-            // Redirecciona al usuario a la vista Index de Colaboradores
-            return RedirectToAction("Index");
+            // Si no se puede convertir el valor ingresado a un número entero válido,
+            // o si el modelo no es válido, redirecciona al usuario a la vista "Create"
+            return View(colaborador);
         }
 
-        // POST: Colaborador/Edit/5
-        [HttpPost]
-        public ActionResult Edit(Colaborador colaborador)
+        // GET: Mascota/Edit/5
+        public ActionResult Edit(int? id)
         {
-            if (ModelState.IsValid)
+            if (id == null)
             {
-                _dbContext.Entry(colaborador).State = System.Data.Entity.EntityState.Modified;
-                _dbContext.SaveChanges();
-                return RedirectToAction("Index");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Colaborador colaborador = _dbContext.Colaboradores.Find(id);
+            if (colaborador == null)
+            {
+                return HttpNotFound();
             }
             return View(colaborador);
         }
 
+        // POST: Colaborador/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "id,nombre,apellido,cargo,especialidad,tipoDocumento,DocumentoIdentificacion")] Colaborador colaborador)
+        {
+            int documento;
+            if (int.TryParse(colaborador.DocumentoIdentificacion.ToString(), out documento))
+            {
+                colaborador.DocumentoIdentificacion = documento;
+                if (ModelState.IsValid)
+                {
+                    _dbContext.Entry(colaborador).State = System.Data.Entity.EntityState.Modified;
+                    _dbContext.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+
+            // Si no se puede convertir el valor ingresado a un número entero válido,
+            // o si el modelo no es válido, redirecciona al usuario a la vista "Create"
+            return View(colaborador);
+         }
+
+        // GET: Mascota/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Colaborador colaborador = _dbContext.Colaboradores.Find(id);
+            if (colaborador == null)
+            {
+                return HttpNotFound();
+            }
+            return View(colaborador);
+        }
+
+
         // POST: Colaborador/Delete/5
         [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Colaborador colaborador = _dbContext.Colaboradores.Find(id);
@@ -97,5 +129,30 @@ namespace VeterinariaFramework.Controllers
             _dbContext.SaveChanges();
             return RedirectToAction("Index");
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

@@ -1,0 +1,86 @@
+﻿@model VeterinariaFramework.Models.Colaborador
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Modificar Colaborador</title>
+</head>
+<body>
+    <h1>Modificación del Colaborador</h1>
+    <form method="post" action="@Url.Action("Edit", "Colaborador")">
+        @Html.AntiForgeryToken()        
+        <input type="hidden" name="id" value="@Model.Id" />
+        <div class="form-group">
+            <label for="tipoDocumento">Tipo de Documento:</label>
+            <select class="form-control" name="tipoDocumento" id="tipoDocumento" required>
+                <option value="">Seleccione...</option>
+                <option value="CC" @if (Model.TipoDocumento == "CC") { <text> selected="selected" </text> }>Cédula de Ciudadanía</option>
+                <option value="TI" @if (Model.TipoDocumento == "TI") { <text> selected="selected" </text> }>Tarjeta de Identidad</option>
+                <option value="PT" @if (Model.TipoDocumento == "PT") { <text> selected="selected" </text> }>Pasaporte</option>
+                <option value="CE" @if (Model.TipoDocumento == "CE") { <text> selected="selected" </text> }>Cédula de Extranjería</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="numeroDocumento">Número de Documento:</label>
+            <input type="text" class="form-control" name="documentoIdentificacion" id="documentoIdentificaion" value="@Model.DocumentoIdentificacion" required>
+        </div>
+
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" class="form-control" name="nombre" id="nombre" value="@Model.Nombre" required>
+        </div>
+
+        <div class="form-group">
+            <label for="apellido">Apellido:</label>
+            <input type="text" class="form-control" name="apellido" id="apellido" value="@Model.Apellido" required>
+        </div>
+
+        <div class="form-group">
+            <label for="cargo">Cargo:</label>
+            <input type="text" class="form-control" name="cargo" id="cargo" value="@Model.Cargo" required>
+        </div>
+
+        <div class="form-group">
+            <label>Especialidad:</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="especialidad" id="cirujano" value="cirujano" @if (Model.Especialidad == "cirujano") { <text> checked="checked" </text> } required>
+                <label class="form-check-label" for="cirujano">
+                    Cirujano
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="especialidad" id="nutricionista" value="nutricionista" @if (Model.Especialidad == "nutricionista") { <text> checked="checked" </text> } required>
+                <label class="form-check-label" for="nutricionista">
+                    Nutricionista
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="especialidad" id="cardiologo" value="cardiologo" @if (Model.Especialidad == "cardiologo") { <text> checked="checked" </text> } required>
+                <label class="form-check-label" for="cardiologo">
+                    Cardiólogo
+                </label>
+            </div>
+        </div>
+        <div>
+            <input type="submit" class="btn btn-primary" value="Actualizar">
+            <a href="@Url.Action("Index", "Colaborador")" class="btn btn-success">Regresar al Listado</a>
+
+        </div>
+    </form>
+
+
+
+
+</body>
+</html>
+
+
+
+
