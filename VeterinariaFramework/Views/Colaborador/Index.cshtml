@@ -1,64 +1,93 @@
-﻿<!DOCTYPE html>
+﻿@model IEnumerable<VeterinariaFramework.Models.Colaborador>
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <title>Lista de Colaboradores</title>
+    <style>
+        .btn-action {
+            width: 100px;
+        }
+
+        table {
+            padding: 0;
+        }
+
+        td.action-cell {
+            width: 100px;
+        }
+    </style>
 </head>
 <body>
     <h1>Lista de Colaboradores</h1>
-    <table id="colaboradores" class="table">
+    <table id="colaboradores" class="table table-striped">
         <thead>
             <tr>
-                <th>ID</th>
+                <th>Tipo de documento</th>
+                <th>Documento de identificación</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>Cargo</th>
                 <th>Especialidad</th>
-                <th>Tipo de documento</th>
-                <th>Documento de identificacion</th>
+                <th align="center" colspan="3">Acciones</th>
             </tr>
         </thead>
         <tbody>
+            @foreach (var colaborador in Model)
+            {
+                <tr>
+                    <td>
+                        @switch (colaborador.TipoDocumento)
+                        {
+                            case "CC":
+                                <text>Cedula</text>
+                                break;
+                            case "TI":
+                                <text>Targeta de identidad</text>
+                                break;
+                            case "PT":
+                                <text>Pasaporte</text>
+                                break;
+                            case "CE":
+                                <text>Cedula de extranjeria</text>
+                                break;
+                            default:
+                                <text>@colaborador.TipoDocumento</text>
+                                break;
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => colaborador.DocumentoIdentificacion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => colaborador.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => colaborador.Apellido)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => colaborador.Cargo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => colaborador.Especialidad)
+                    </td>
+                    <td class="action-cell">
+                        @Html.ActionLink("Edit", "Edit", new { id = colaborador.Id }, new { @class = "btn btn-primary btn-action" })
+                    </td>
+                    <td class="action-cell">
+                        @Html.ActionLink("Details", "Details", new { id = colaborador.Id }, new { @class = "btn btn-info btn-action" })
+                    </td>
+                    <td class="action-cell">
+                        @Html.ActionLink("Delete", "Delete", new { id = colaborador.Id }, new { @class = "btn btn-danger btn-action" })
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
-
-    <script>
-        var colaboradores = @Html.Raw(Json.Encode(Model));
-        var tbody = document.querySelector('#colaboradores tbody');
-
-        colaboradores.forEach(function (colaborador) {
-            var row = document.createElement('tr');
-
-            var id = document.createElement('td');
-            id.textContent = colaborador.Id;
-            row.appendChild(id);
-
-            var nombre = document.createElement('td');
-            nombre.textContent = colaborador.Nombre;
-            row.appendChild(nombre);
-
-            var apellido = document.createElement('td');
-            apellido.textContent = colaborador.Apellido;
-            row.appendChild(apellido);
-
-            var cargo = document.createElement('td');
-            cargo.textContent = colaborador.Cargo;
-            row.appendChild(cargo);
-
-            var especialidad = document.createElement('td');
-            especialidad.textContent = colaborador.Especialidad;
-            row.appendChild(especialidad);
-
-            var tipoDocumento = document.createElement('td');
-            tipoDocumento.textContent = colaborador.TipoDocumento;
-            row.appendChild(tipoDocumento);
-
-            var documentoIdentificiacion = document.createElement('td');
-            documentoIdentificiacion.textContent = colaborador.DocumentoIdentificacion;
-            row.appendChild(documentoIdentificiacion);
-
-            tbody.appendChild(row);
-        });
-    </script>
+    <div>
+        @Html.ActionLink("Nuevo colaborador", "Create", null, new { @class = "btn btn-info" })
+    </div>
 </body>
 </html>
+

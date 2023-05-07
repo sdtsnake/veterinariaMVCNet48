@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VeterinariaFramework.Models
 {
+    [Table("Colaboradors")]
     public class Colaborador
     {
         [Key]
