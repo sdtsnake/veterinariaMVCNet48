@@ -15,7 +15,7 @@
             @Html.DisplayNameFor(model => model.Usuario.Nombre)
         </dt>
 
-        <dd>
+        <dd class = "form-control">
             @Html.DisplayFor(model => model.Usuario.Nombre)
         </dd>
 
@@ -23,7 +23,7 @@
             @Html.DisplayNameFor(model => model.Nombre)
         </dt>
 
-        <dd>
+        <dd class = "form-control">
             @Html.DisplayFor(model => model.Nombre)
         </dd>
 
@@ -31,13 +31,28 @@
             @Html.DisplayNameFor(model => model.Raza)
         </dt>
 
-        <dd>
+        <dd class = "form-control">
             @Html.DisplayFor(model => model.Raza)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Sexo)
+        </dt>
+        <dd>
+            @if (Convert.ToInt32(Model.Sexo) == 0)
+            {
+                <dd class = "form-control">Macho</dd>
+            }
+            else
+            {
+                <dd class = "form-control">Hembra</dd>
+            }
+        </dd>
+
+
+
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MascotaId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div>
+   <a href="@Url.Action("Index")" class="btn btn-success">Regresar a la lista</a>
+</div>

@@ -19,16 +19,17 @@ namespace VeterinariaFramework.Models
         [Required]
         [MaxLength(150)]
         public string Raza { get; set; }
-        
+
+        [Required]
+        [MaxLength(1)]
+        public string Sexo { get; set; }
+
         [Required]
         public int UsuarioId { get; set; }
 
         [ForeignKey("UsuarioId")]
         public virtual Usuario Usuario { get; set; }
-        
-        [Required]        
-        public char Sexo { get; set; }
-                
+                               
         [NotMapped]
         private ICollection<HistoriaClinica> historiasClinicas = new List<HistoriaClinica>();
         public virtual ICollection<HistoriaClinica> HistoriasClinicas

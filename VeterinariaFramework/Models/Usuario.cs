@@ -10,7 +10,7 @@ namespace VeterinariaFramework.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int UusarioId { get; set; }
+        public int UsuarioId { get; set; }
 
         [Required]
         [MaxLength(150)]
@@ -31,7 +31,8 @@ namespace VeterinariaFramework.Models
         [MaxLength(1)]
         public string Estado { get; set; }
 
-        [Required]        
+        [Required]
+        [Column("Sexo")]
         public char Sexo { get; set; }
 
         [NotMapped]

@@ -1,81 +1,64 @@
 ﻿@model IEnumerable<VeterinariaFramework.Models.Mascota>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>Mascotas</title>
-    <style>
-        .btn-action {
-            width: 100px;
-        }
 
-        table {
-            padding: 0;
-        }
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-        td.action-cell {
-            width: 100px;
-        }
-    </style>
-</head>
-<body>
+<h2>Lista de mascotas</h2>
 
-    @{
-        ViewBag.Title = "Index";
-        Layout = "~/Views/Shared/_Layout.cshtml";
+<p>
+    <a href="@Url.Action("Create")" class="btn btn-success">Crear mascota</a>
+</p>
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Usuario.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Raza)
+        </th>
+        <th>
+            Sexo
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Usuario.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Raza)
+            </td>
+            <td>
+                @if (item.Sexo == "0")
+                {
+                    <span>Macho</span>
+                }
+                else if (item.Sexo == "1")
+                {
+                    <span>Hembra</span>
+                }
+                else
+                {
+                    <span>Desconocido</span>
+                }
+            </td>
+            <td>
+                <a href="@Url.Action("Edit", new { id=item.MascotaId })" class="btn btn-primary">Modificar</a>
+                <a href="@Url.Action("Details", new { id=item.MascotaId })" class="btn btn-info">Detalles</a>
+                <a href="@Url.Action("Delete", new { id=item.MascotaId })" class="btn btn-danger">Borrar</a>         
+            </td>
+        </tr>
     }
 
-    <h2>Index</h2>
-
-
-    <table class="table table-striped" id="mascotas">
-        <thead>
-            <tr>
-                <th>
-                    Propietario
-                </th>
-                <th>
-                    Nombre
-                </th>
-                <th>
-                    Raza
-                </th>
-                <th align="center" colspan="3">
-                    Operaciones
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var mascota in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => mascota.Usuario.Nombre)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => mascota.Nombre)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => mascota.Raza)
-                    </td>
-                    <td class="action-cell">
-                        @Html.ActionLink("Edit", "Edit", new { id = mascota.MascotaId }, new { @class = "btn btn-primary btn-action" })
-                    </td>
-                    <td class="action-cell">
-                        @Html.ActionLink("Details", "Details", new { id = mascota.MascotaId }, new { @class = "btn btn-info btn-action" })
-                    </td>
-                    <td class="action-cell">
-                        @Html.ActionLink("Delete", "Delete", new { id = mascota.MascotaId }, new { @class = "btn btn-danger btn-action" })
-                    </td>
-
-
-                </tr>
-            }
-        </tbody>
-    </table>
-    <div>
-        @Html.ActionLink("Nueva mascota", "Create", null, new { @class = "btn btn-info" })
-    </div>
-</body>
-</html>
+</table>

@@ -7,13 +7,13 @@ namespace VeterinariaFramework.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class ActualizacionColaborador : IMigrationMetadata
+    public sealed partial class actualizacion : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ActualizacionColaborador));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(actualizacion));
         
         string IMigrationMetadata.Id
         {
-            get { return "202305040225463_ActualizacionColaborador"; }
+            get { return "202305082025144_actualizacion"; }
         }
         
         string IMigrationMetadata.Source

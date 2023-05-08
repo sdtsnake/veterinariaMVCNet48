@@ -264,9 +264,17 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Interfaz\IVeterinariaDbContext.cs" />
-    <Compile Include="Migrations\202305040225463_ActualizacionColaborador.cs" />
-    <Compile Include="Migrations\202305040225463_ActualizacionColaborador.designer.cs">
-      <DependentUpon>202305040225463_ActualizacionColaborador.cs</DependentUpon>
+    <Compile Include="Migrations\202305082025144_actualizacion.cs" />
+    <Compile Include="Migrations\202305082025144_actualizacion.designer.cs">
+      <DependentUpon>202305082025144_actualizacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305082110436_actualizacionMascota.cs" />
+    <Compile Include="Migrations\202305082110436_actualizacionMascota.designer.cs">
+      <DependentUpon>202305082110436_actualizacionMascota.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305082148355_actualizacionMascotaSexo.cs" />
+    <Compile Include="Migrations\202305082148355_actualizacionMascotaSexo.designer.cs">
+      <DependentUpon>202305082148355_actualizacionMascotaSexo.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Colaborador.cs" />
@@ -330,14 +338,14 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Colaborador\Index.cshtml" />
     <Content Include="Views\Colaborador\Create.cshtml" />
+    <Content Include="Views\Colaborador\Edit.cshtml" />
+    <Content Include="Views\Colaborador\Details.cshtml" />
+    <Content Include="Views\Colaborador\Delete.cshtml" />
     <Content Include="Views\Mascota\Create.cshtml" />
     <Content Include="Views\Mascota\Delete.cshtml" />
     <Content Include="Views\Mascota\Details.cshtml" />
     <Content Include="Views\Mascota\Edit.cshtml" />
     <Content Include="Views\Mascota\Index.cshtml" />
-    <Content Include="Views\Colaborador\Edit.cshtml" />
-    <Content Include="Views\Colaborador\Details.cshtml" />
-    <Content Include="Views\Colaborador\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -370,8 +378,14 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202305040225463_ActualizacionColaborador.resx">
-      <DependentUpon>202305040225463_ActualizacionColaborador.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202305082025144_actualizacion.resx">
+      <DependentUpon>202305082025144_actualizacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305082110436_actualizacionMascota.resx">
+      <DependentUpon>202305082110436_actualizacionMascota.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305082148355_actualizacionMascotaSexo.resx">
+      <DependentUpon>202305082148355_actualizacionMascotaSexo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

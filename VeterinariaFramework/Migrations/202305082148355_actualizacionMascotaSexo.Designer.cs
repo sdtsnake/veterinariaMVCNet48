@@ -7,18 +7,18 @@ namespace VeterinariaFramework.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class NombreDeLaMigracion : IMigrationMetadata
+    public sealed partial class actualizacionMascotaSexo : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(NombreDeLaMigracion));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(actualizacionMascotaSexo));
         
         string IMigrationMetadata.Id
         {
-            get { return "202305040225271_[NombreDeLaMigracion]"; }
+            get { return "202305082148355_actualizacionMascotaSexo"; }
         }
         
         string IMigrationMetadata.Source
         {
-            get { return Resources.GetString("Source"); }
+            get { return null; }
         }
         
         string IMigrationMetadata.Target

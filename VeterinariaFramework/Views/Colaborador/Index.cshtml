@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Lista de Colaboradores</title>
+    <title>Lista de colaboradores</title>
     <style>
         .btn-action {
             width: 100px;
@@ -21,6 +21,9 @@
 </head>
 <body>
     <h1>Lista de Colaboradores</h1>
+    <div>
+        @Html.ActionLink("Nuevo colaborador", "Create", null, new { @class = "btn btn-success" })
+    </div>
     <table id="colaboradores" class="table table-striped">
         <thead>
             <tr>
@@ -85,9 +88,6 @@
             }
         </tbody>
     </table>
-    <div>
-        @Html.ActionLink("Nuevo colaborador", "Create", null, new { @class = "btn btn-info" })
-    </div>
 </body>
 </html>
 
