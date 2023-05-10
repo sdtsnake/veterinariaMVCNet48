@@ -33,7 +33,8 @@ namespace VeterinariaFramework.Models
 
         [Required]
         [Column("Sexo")]
-        public char Sexo { get; set; }
+        [MaxLength(1)]
+        public string Sexo { get; set; }
 
         [NotMapped]
         private ICollection<Mascota> mascotas = new List<Mascota>();

@@ -17,7 +17,7 @@ namespace VeterinariaFramework.Controllers
 
         public ColaboradorController(VeterinariaDbContext dbContext)
         {
-            this._dbContext = dbContext;
+            _dbContext = dbContext;
         }
 
         [HttpGet]

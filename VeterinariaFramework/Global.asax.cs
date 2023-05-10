@@ -10,6 +10,10 @@ using Unity.AspNet.Mvc;
 using Unity.Lifetime;
 using VeterinariaFramework.Interfaz;
 using VeterinariaFramework.Models;
+using VeterinariaFramework.Resository;
+using VeterinariaFramework.Resositorys;
+using VeterinariaFramework.Services;
+using VeterinariaFramework.ServicesImpl;
 
 namespace VeterinariaFramework
 {
@@ -19,6 +23,11 @@ namespace VeterinariaFramework
         {
             var container = new UnityContainer();
             container.RegisterType<IVeterinariaDbContext, VeterinariaDbContext>(new HierarchicalLifetimeManager());
+            container.RegisterType<IUsuarioService, UsuarioServiceImpl>(new HierarchicalLifetimeManager());
+            container.RegisterType<IMascotaRepository, MascotaRepository>(new HierarchicalLifetimeManager());
+            container.RegisterType<IUsuarioRepository, UsuarioRepository>(new HierarchicalLifetimeManager());
+
+
 
             // Registra aquí las demás dependencias que necesites
 

@@ -7,42 +7,47 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using VeterinariaFramework.Models;
+using VeterinariaFramework.Resository;
+using VeterinariaFramework.Resositorys;
 
 namespace VeterinariaFramework.Controllers
 {
     public class MascotaController : Controller
     {
-        private VeterinariaDbContext db = new VeterinariaDbContext();
-
+        private readonly IMascotaRepository _mascotaRepository;
+        private readonly IUsuarioRepository _usuarioRepository;
+        public MascotaController(IMascotaRepository mascotaRepository, IUsuarioRepository usuarioRepository)
+        {
+            _mascotaRepository = mascotaRepository ?? throw new ArgumentNullException(nameof(mascotaRepository));
+            _usuarioRepository = usuarioRepository ?? throw new ArgumentNullException(nameof(usuarioRepository));
+        }
         // GET: Mascota
         public ActionResult Index()
         {
-            var mascotas = db.Mascotas.Include(m => m.Usuario);
+            var mascotas = _mascotaRepository.GetAllMascotas();
             return View(mascotas.ToList());
         }
-
         // GET: Mascota/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Mascota mascota = db.Mascotas.Find(id);
+            }            
+            Mascota mascota = _mascotaRepository.GetMascotaById(id.Value);
             if (mascota == null)
             {
                 return HttpNotFound();
             }
             return View(mascota);
         }
-
         // GET: Mascota/Create
         public ActionResult Create()
         {
-            ViewBag.UsuarioId = new SelectList(db.Usuarios, "UsuarioId", "Nombre");
+            var usuarios = _usuarioRepository.GetAllUsuarios();
+            ViewBag.UsuarioId = new SelectList(usuarios, "UsuarioId", "Nombre");
             return View();
         }
-
         // POST: Mascota/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -52,12 +57,12 @@ namespace VeterinariaFramework.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Mascotas.Add(mascota);
-                db.SaveChanges();
+                _mascotaRepository.UpdateMascota(mascota);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.UsuarioId = new SelectList(db.Usuarios, "UsuarioId", "Nombre", mascota.UsuarioId);
+            var usuarios = _usuarioRepository.GetAllUsuarios();
+            ViewBag.UsuarioId = new SelectList(usuarios, "UsuarioId", "Nombre", mascota.UsuarioId);
             return View(mascota);
         }
 
@@ -67,13 +72,13 @@ namespace VeterinariaFramework.Controllers
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Mascota mascota = db.Mascotas.Find(id);
+            }            
+            Mascota mascota = _mascotaRepository.GetMascotaById(id.Value);
             if (mascota == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.UsuarioId = new SelectList(db.Usuarios, "UsuarioId", "Nombre", mascota.UsuarioId);
+            ViewBag.UsuarioId = new SelectList(_dbContext.Usuarios, "UsuarioId", "Nombre", mascota.UsuarioId);
             return View(mascota);
         }
 
@@ -86,14 +91,12 @@ namespace VeterinariaFramework.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(mascota).State = EntityState.Modified;
-                db.SaveChanges();
+                _mascotaRepository.UpdateMascota(mascota);
                 return RedirectToAction("Index");
             }
-            ViewBag.UsuarioId = new SelectList(db.Usuarios, "UsuarioId", "Nombre", mascota.UsuarioId);
+            ViewBag.UsuarioId = new SelectList(_dbContext.Usuarios, "UsuarioId", "Nombre", mascota.UsuarioId);
             return View(mascota);
         }
-
         // GET: Mascota/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -101,7 +104,7 @@ namespace VeterinariaFramework.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Mascota mascota = db.Mascotas.Find(id);
+            Mascota mascota = _mascotaRepository.GetMascotaById(id.Value);
             if (mascota == null)
             {
                 return HttpNotFound();
@@ -112,21 +115,30 @@ namespace VeterinariaFramework.Controllers
         // POST: Mascota/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Mascota mascota = db.Mascotas.Find(id);
-            db.Mascotas.Remove(mascota);
-            db.SaveChanges();
+        public ActionResult DeleteConfirmed(int? id)
+        {          
+            _mascotaRepository.DeleteMascota(id.Value);
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+        
+
+
+
     }
 }

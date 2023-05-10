@@ -1,0 +1,108 @@
+﻿@model IEnumerable<VeterinariaFramework.Models.Usuario>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Lista de propietarios</h2>
+
+<p>
+    <a href="@Url.Action("Create")" class="btn btn-success">Crear propietario</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoDocumento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentoIdentificacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Apellido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sexo)
+            </th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var usuario in Model)
+        {
+            <tr>
+                <td>
+                    @switch (usuario.TipoDocumento)
+                    {
+                        case "CC":
+                            <text>Cedula</text>
+                            break;
+                        case "TI":
+                            <text>Targeta de identidad</text>
+                            break;
+                        case "PT":
+                            <text>Pasaporte</text>
+                            break;
+                        case "CE":
+                            <text>Cedula de extranjeria</text>
+                            break;
+                        default:
+                            <text>@usuario.TipoDocumento</text>
+                            break;
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => usuario.DocumentoIdentificacion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => usuario.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => usuario.Apellido)
+                </td>
+                <td>
+                    @switch (usuario.Estado)
+                    {
+                        case "0":
+                            <text>Soltero</text>
+                            break;
+                        case "1":
+                            <text>Casado</text>
+                            break;
+                        default:
+                            <text>@usuario.Estado</text>
+                            break;
+                    }
+                </td>
+                <td>
+                    @switch (usuario.Sexo)
+                    {
+                        case "0":
+                            <text>Masculino</text>
+                            break;
+                        case "1":
+                            <text>Femenino</text>
+                            break;
+                        default:
+                            <text>@usuario.Sexo</text>
+                            break;
+                    }
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit", new { id=usuario.UsuarioId })" class="btn btn-primary">Modificar</a>
+                    <a href="@Url.Action("Details", new { id=usuario.UsuarioId })" class="btn btn-info">Detalles</a>
+                    <a href="@Url.Action("Delete", new { id=usuario.UsuarioId })" class="btn btn-danger">Borrar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
