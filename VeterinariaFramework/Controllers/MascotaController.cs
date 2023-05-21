@@ -78,7 +78,8 @@ namespace VeterinariaFramework.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.UsuarioId = new SelectList(_dbContext.Usuarios, "UsuarioId", "Nombre", mascota.UsuarioId);
+            var usuarios = _usuarioRepository.GetAllUsuarios();
+            ViewBag.UsuarioId = new SelectList(usuarios, "UsuarioId", "Nombre", mascota.UsuarioId);
             return View(mascota);
         }
 
@@ -94,7 +95,8 @@ namespace VeterinariaFramework.Controllers
                 _mascotaRepository.UpdateMascota(mascota);
                 return RedirectToAction("Index");
             }
-            ViewBag.UsuarioId = new SelectList(_dbContext.Usuarios, "UsuarioId", "Nombre", mascota.UsuarioId);
+            var usuarios = _usuarioRepository.GetAllUsuarios();
+            ViewBag.UsuarioId = new SelectList(usuarios, "UsuarioId", "Nombre", mascota.UsuarioId);
             return View(mascota);
         }
         // GET: Mascota/Delete/5

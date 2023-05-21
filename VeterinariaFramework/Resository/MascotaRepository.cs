@@ -8,7 +8,7 @@ using VeterinariaFramework.Resositorys;
 
 namespace VeterinariaFramework.Resository
 {
-    public class MascotaRepository : IMascotaRepository
+    public class MascotaRepository : IMascotaRepository, IDisposable
     {
        
         private readonly VeterinariaDbContext _dbContext;

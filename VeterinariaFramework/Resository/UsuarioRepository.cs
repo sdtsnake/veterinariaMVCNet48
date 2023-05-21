@@ -6,7 +6,7 @@ using VeterinariaFramework.Models;
 
 namespace VeterinariaFramework.Resository
 {
-    public class UsuarioRepository : IUsuarioRepository
+    public class UsuarioRepository : IUsuarioRepository, IDisposable
     {
         private readonly VeterinariaDbContext _dbContext;
 
